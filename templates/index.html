@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+        overflow: hidden;
+    }
+    #container {
+            position: absolute;
+            bottom: 0;
+            width: 100vw;
+            height: 100vw;
+            overflow: hidden;
+        }
+
+    #wheel {
+      margin-top: 10%; /* 아래로 내리고 싶은 만큼의 여백 값을 지정하세요 */
+      width: 100vw;
+      height: 100vw;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option {
+        position: absolute;
+        width: 25%;   /* 이 값을 수정해 주세요 */
+        height:70%;  /* 이 값을 수정해 주세요 */
+        top: 15%;     /* 이 값을 수정해 주세요 */
+        left: 37.5%;    /* 이 값을 수정해 주세요 */
+        transform-origin: 50% 50%;  /* 이 값을 수정해 주세요 */
+        pointer-events: none;
+    }
+
+    .option img {
+      max-width: 67%;
+      max-height: 67%;
+      display: block;
+      margin: 0 auto;
+      margin-top: 10%; /* 아래로 내리고 싶은 만큼의 여백 값을 지정하세요 */
+    }
+
+    /* 추가된 스타일 */
+    .title {
+      position: absolute;
+      top: 7%;
+      left: 50%;
+      font-size: 45px;
+      font-weight: bold;
+      text-align: center;
+      transform: translateX(-50%);
+      font-family: Serif; /* 여기에 원하는 글꼴을 지정하세요 */
+    }
+
+    .description {
+      position: absolute;
+      top: 1%;
+      left: 50%;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      transform: translateX(-50%);
+      white-space: nowrap; /* 줄바꿈을 방지하고 텍스트를 한 줄로 유지합니다. */
+      font-family: Serif; /* 여기에 원하는 글꼴을 지정하세요 */
+    }
+
+    /* 수정된 스타일 */
+    .option:nth-child(1) {
+      transform: rotate(0deg) translate(0, -150px);
+    }
+
+    .option:nth-child(2) {
+      transform: rotate(60deg) translate(0, -150px);
+    }
+
+    .option:nth-child(3) {
+      transform: rotate(120deg) translate(0, -150px);
+    }
+
+    .option:nth-child(4) {
+      transform: rotate(180deg) translate(0, -150px);
+    }
+
+    .option:nth-child(5) {
+      transform: rotate(240deg) translate(0, -150px);
+    }
+
+    .option:nth-child(6) {
+      transform: rotate(300deg) translate(0, -150px);
+    }
+
+    
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      adjustWheelSize();
+
+      window.addEventListener('resize', adjustWheelSize);
+
+      function adjustWheelSize() {
+        var viewportWidth = window.innerWidth;
+        var viewportHeight = window.innerHeight;
+
+        var wheelSize = viewportWidth;
+
+        var wheel = document.getElementById('wheel');
+        wheel.style.width = wheelSize + 'px';
+        wheel.style.height = wheelSize + 'px';
+        container.style.height = wheelSize/2 + 'px'
+      }
+
+    });
+  </script>
+</head>
+<body>
+  <div class="title">Hello, BangDoon World!</div>
+  <div id="container">
+    <div id="wheel">
+      <div class="option">
+        <div class="description">Project 1 : Age Estimation of Dental Radiographs</div>
+        <a href="https://bangdoon.notion.site/Age-Estimation-of-Dental-radiographs-based-on-A-I-AEDA-0449bf86a1c042bcae42b9f2a9295633" target="_blank">
+        <img src="static/image1.jpg" alt="Option 1" style="pointer-events: auto;">
+        </a>
+      </div>
+      <div class="option">
+        <div class="description">Project 2 : Smart Signage</div>
+        <a href="https://bangdoon.notion.site/Smart-Signage-923ef580fd5045fc99f11b2f4cb1f26d" target="_blank">
+        <img src="static/image2.jpg" alt="Option 2" style="pointer-events: auto;"> 
+        </a>
+      </div>
+      <div class="option">
+        <div class="description">Project 3 : Generate Sonar Image</div>
+        <a href="https://bangdoon.notion.site/Generate-Sonar-Image-a9b8e8a701de4e54962765012dae553d" target="_blank">
+        <img src="static/image3.jpg" alt="Option 3" style="pointer-events: auto;">
+        </a>
+      </div>
+      <div class="option">
+        <div class="description">Project 4 : Hand Gesture Recognition </div>
+        <a href="https://bangdoon.notion.site/TV-7ce4548218bb476c914478b3399de810" target="_blank">
+        <img src="static/image4.jpg" alt="Option 4" style="pointer-events: auto;">
+        </a>
+      </div>
+      <div class="option">
+        <div class="description">Experience 1 : A3I WinterCamp 2023</div>
+        <a href="https://bangdoon.notion.site/A3I-WinterCamp-2023-2b039d03bfd24e6aba826459be807e99" target="_blank">
+        <img src="static/image5.jpg" alt="Option 5" style="pointer-events: auto;">
+        </a>
+      </div>
+      <div class="option">
+        <div class="description">Experience 2 : Study Leader</div>
+        <a href="https://bangdoon.notion.site/Study-Leader-2a1e17a0d55c4b82be8e3d6f05652bf0" target="_blank">
+        <img src="static/image6.jpg" alt="Option 6" style="pointer-events: auto;">
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 휠 요소와 초기 각도 설정
+    const wheel = document.getElementById('wheel');
+    let initialAngle = null;
+    let accumulatedAngle = 0;
+    let previousAngle = 0;
+    let previousTime = null;
+    const dragSpeedMultiplier = 15; // 드래그 속도에 대한 계수 (값을 조절하여 속도 조절)
+    const maxSpeed = 0.5; // 이 값은 원하는 최대 속도에 따라 조절할 수 있습니다.
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    const threshold = 10; // 픽셀 단위
+    const links = Array.from(document.querySelectorAll('.option a'));
+
+    links.forEach(link => {
+      link.addEventListener('mousedown', function(event) {
+        isDragging = false;
+        startX = event.clientX;
+        startY = event.clientY;
+      });
+
+      link.addEventListener('mousemove', function(event) {
+        if (!isDragging) {
+          const dx = startX - event.clientX;
+          const dy = startY - event.clientY;
+          if (Math.abs(dx) > threshold || Math.abs(dy) > threshold) {
+            isDragging = true;
+          }
+        }
+      });
+
+      link.addEventListener('click', function(event) {
+        if (isDragging) {
+          event.preventDefault();
+        }
+      });
+    });
+
+    // 마우스 이벤트 리스너 등록
+    wheel.addEventListener('mousedown', startDrag);
+    wheel.addEventListener('mousemove', rotateWheel);
+    wheel.addEventListener('mouseup', endDrag);
+    wheel.addEventListener('mouseleave', endDrag);
+
+    // 드래그 시작
+    function startDrag(event) {
+      event.preventDefault();
+      initialAngle = getAngle(event);
+      previousAngle = initialAngle;
+      previousTime = Date.now();
+    }
+
+    // 휠 회전
+    let velocity = 0;
+    let lastTime = Date.now();
+
+    function rotateWheel(event) {
+      event.preventDefault();
+      if (initialAngle !== null) {
+        const currentAngle = getAngle(event);
+        const currentTime = Date.now();
+        const timeDiff = currentTime - previousTime;
+        const angleDiff = currentAngle - previousAngle;
+        velocity = Math.min(angleDiff / timeDiff, maxSpeed); // 최대 속도 제한 적용
+        accumulatedAngle += velocity * dragSpeedMultiplier;
+        wheel.style.transform = `rotate(${accumulatedAngle}deg)`;
+        previousAngle = currentAngle;
+        previousTime = currentTime;
+      }
+    }
+
+    function endDrag(event) {
+      event.preventDefault();
+      initialAngle = null;
+      decelerateRotation();
+    }
+
+    function decelerateRotation() {
+      if (Math.abs(velocity) > 0.01) {
+        const currentTime = Date.now();
+        const timeDiff = currentTime - lastTime;
+        velocity *= 0.95; // 감속 속도 조절
+
+        // 최대 속도 체크
+        if (velocity > maxSpeed) {
+          velocity = maxSpeed;
+        } else if (velocity < -maxSpeed) {
+          velocity = -maxSpeed;
+        }
+
+        accumulatedAngle += velocity * dragSpeedMultiplier;
+        wheel.style.transform = `rotate(${accumulatedAngle}deg)`;
+        lastTime = currentTime;
+        requestAnimationFrame(decelerateRotation);
+      } else {
+        velocity = 0; // velocity를 0으로 리셋
+      }
+    }
+
+
+
+    // 마우스 좌표를 기준으로 각도 계산
+    function getAngle(event) {
+      const rect = wheel.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      const deltaX = mouseX - centerX;
+      const deltaY = mouseY - centerY;
+      const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+      return angle;
+    }
+
+    // 터치 이벤트 리스너 추가
+    wheel.addEventListener('touchstart', startDragTouch, false);
+    wheel.addEventListener('touchmove', rotateWheelTouch, false);
+    wheel.addEventListener('touchend', endDragTouch, false);
+
+    // 터치로 드래그 시작
+    function startDragTouch(event) {
+      if (event.target.tagName === 'A') {
+          return;
+        }
+      event.preventDefault();
+      initialAngle = getAngleTouch(event.touches[0]);
+      previousAngle = initialAngle;
+      previousTime = Date.now();
+    }
+
+    // 터치로 휠 회전
+    function rotateWheelTouch(event) {
+      event.preventDefault();
+      if (initialAngle !== null) {
+        const currentAngle = getAngleTouch(event.touches[0]);
+        const currentTime = Date.now();
+        const timeDiff = currentTime - previousTime;
+        const angleDiff = currentAngle - previousAngle;
+        velocity = Math.min(angleDiff / timeDiff, maxSpeed); // 최대 속도 제한 적용
+        accumulatedAngle += velocity * dragSpeedMultiplier;
+        wheel.style.transform = `rotate(${accumulatedAngle}deg)`;
+        previousAngle = currentAngle;
+        previousTime = currentTime;
+      }
+    }
+
+    // 터치로 드래그 종료
+    function endDragTouch(event) {
+      event.preventDefault();
+      initialAngle = null;
+      decelerateRotation();
+    }
+
+    // 터치 좌표를 기준으로 각도 계산
+    function getAngleTouch(touch) {
+      const rect = wheel.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const touchX = touch.clientX;
+      const touchY = touch.clientY;
+      const deltaX = touchX - centerX;
+      const deltaY = touchY - centerY;
+      const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+      return angle;
+    }
+
+    let touchStartClientX, touchStartClientY;
+
+    // 터치로 드래그 시작
+    function startDragTouch(event) {
+      event.preventDefault();
+      touchStartClientX = event.touches[0].clientX;
+      touchStartClientY = event.touches[0].clientY;
+      initialAngle = getAngleTouch(event.touches[0]);
+      previousAngle = initialAngle;
+      previousTime = Date.now();
+    }
+
+    // 터치로 휠 회전
+    function rotateWheelTouch(event) {
+      event.preventDefault();
+      if (initialAngle !== null) {
+        const currentAngle = getAngleTouch(event.touches[0]);
+        const currentTime = Date.now();
+        const timeDiff = currentTime - previousTime;
+        const angleDiff = currentAngle - previousAngle;
+        velocity = Math.min(angleDiff / timeDiff, maxSpeed); // 최대 속도 제한 적용
+        accumulatedAngle += velocity * dragSpeedMultiplier;
+        wheel.style.transform = `rotate(${accumulatedAngle}deg)`;
+        previousAngle = currentAngle;
+        previousTime = currentTime;
+      }
+    }
+
+    // 터치로 드래그 종료
+    function endDragTouch(event) {
+      event.preventDefault();
+      initialAngle = null;
+
+      if (event.changedTouches[0].clientX === touchStartClientX && event.changedTouches[0].clientY === touchStartClientY) {
+        event.target.click();
+      }
+
+      decelerateRotation();
+    }
+
+    wheel.addEventListener('touchstart', startDragTouch, { passive: false });
+    wheel.addEventListener('touchmove', rotateWheelTouch, { passive: false });
+    wheel.addEventListener('touchend', endDragTouch, { passive: false });
+  </script>
+</body>
+</html>
