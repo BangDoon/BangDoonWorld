@@ -1,2 +1,0 @@
-# BangDoonWorld
-Hello, BangDoonWorld!
